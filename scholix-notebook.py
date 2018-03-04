@@ -3,6 +3,9 @@
 
 # # Get List of Data Sources
 
+# In[ ]:
+
+
 import requests, os
 from requests.utils import requote_uri
 urlString= 'https://api-dliservice-prototype-dli.d4science.org/v1/listDatasources'
@@ -26,6 +29,9 @@ print('We found {} data sources.'.format(count))
 
 # # Download files for a given datasource
 
+# In[ ]:
+
+
 SelectedDataSources={4,8}
 
 #Create local folder for the data sources
@@ -38,8 +44,11 @@ for i in SelectedDataSources:
         print ('We found a local folder for: {}'.format(ds))
 
 
+# In[ ]:
+
+
 #Download
-maximumPages=100
+maximumPages=10000
 
 for i in SelectedDataSources:
     ds=dataSources[i]
