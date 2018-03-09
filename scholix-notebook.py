@@ -8,7 +8,7 @@
 
 import requests, os
 from requests.utils import requote_uri
-urlString= 'https://api-dliservice-prototype-dli.d4science.org/v1/listDatasources'
+urlString= 'http://api.scholexplorer.openaire.eu/v1/listDatasources'
 r = requests.get(urlString)
 
 #Create a URL encoded list of data sources
@@ -32,7 +32,7 @@ print('We found {} data sources.'.format(count))
 # In[ ]:
 
 
-SelectedDataSources={4,8}
+SelectedDataSources={0,1,2}
 
 #Create local folder for the data sources
 for i in SelectedDataSources:
@@ -48,14 +48,14 @@ for i in SelectedDataSources:
 
 
 #Download
-maximumPages=10000
+maximumPages=1000000
 
 for i in SelectedDataSources:
     ds=dataSources[i]
     page=0
     statusCode=200
     while (statusCode==200 and page < maximumPages):
-        urlString= 'https://api-dliservice-prototype-dli.d4science.org/v1/linksFromDatasource?datasource={}&page={}'.format(ds,page)
+        urlString= 'http://api.scholexplorer.openaire.eu/v1/linksFromDatasource?datasource={}&page={}'.format(ds,page)
         r = requests.get(urlString)
         fileName='{}.json'.format(1000000+page)
         myfile = open('./{}/{}'.format(ds,fileName), 'w')
