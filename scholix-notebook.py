@@ -32,7 +32,7 @@ print('We found {} data sources.'.format(count))
 # In[ ]:
 
 
-SelectedDataSources={0,1,2}
+SelectedDataSources={3,4,5,6,7,8,9}
 
 #Create local folder for the data sources
 for i in SelectedDataSources:
