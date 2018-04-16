@@ -126,6 +126,13 @@ def main(path):
 # In[ ]:
 
 
+if __name__ == '__main__':
+    main(sys.argv[1])
+
+
+# In[ ]:
+
+
 
 # urlString= 'https://api.datacite.org/prefixes'
 # r = requests.get(urlString)
