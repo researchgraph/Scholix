@@ -109,9 +109,9 @@ def main(path):
     for fname in glob.glob(path):
         with open(fname , 'r') as f:
             lines = f.readlines()
-        print ('{} lines are {}'.format(len(lines),fname))
+        print ('{} lines are in {}'.format(len(lines),fname))
         for line in lines:
-            data = json.load(line)
+            data = json.loads(line)
             for link in data:
                 processNode(link['source'])
                 processNode(link['target'])            
