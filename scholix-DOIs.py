@@ -106,7 +106,9 @@ def importPrefixes():
 
 def main(path):
     path = '{}/*.json'.format(path)
+    print(path);
     for fname in glob.glob(path):
+        print(fname);
         data = json.load(open(fname))
         for l in data:
             processNode(l['source'])
