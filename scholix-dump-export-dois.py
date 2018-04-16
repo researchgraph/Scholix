@@ -101,14 +101,16 @@ def importPrefixes():
     db.close()
 
 
-# In[ ]:
+# In[2]:
 
 
 def main(path):
     path = '{}/*.json'.format(path)
     for fname in glob.glob(path):
-        print(fname);
-        for line in open(fname, mode="r"):
+        with open(fname , 'r') as f:
+            lines = f.readlines()
+        print ('{} lines are {}'.format(len(lines),fname))
+        for line in lines:
             data = json.load(line)
             for link in data:
                 processNode(link['source'])
