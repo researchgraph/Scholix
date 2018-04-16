@@ -110,6 +110,7 @@ def main(path):
     for fname in glob.glob(path):
         print(fname);
         data = json.load(open(fname))
+        print (len(data))
         for l in data:
             processNode(l['source'])
             processNode(l['target'])            
@@ -122,7 +123,7 @@ def main(path):
 # In[ ]:
 
 
-# main('Elsevier')
+#main('Elsevier')
 
 
 # In[ ]:
