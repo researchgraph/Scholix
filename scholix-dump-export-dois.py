@@ -12,6 +12,8 @@ import requests
 from requests.utils import requote_uri
 import sqlite3
 import codecs
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 localDB='doi_prefixes.db'
 doi_table_name = 'dois'
@@ -102,7 +104,7 @@ def importPrefixes():
     db.close()
 
 
-# In[ ]:
+# In[1]:
 
 
 def main(path):
@@ -120,8 +122,10 @@ def main(path):
             processNode(data['Source'])
             processNode(data['Target'])          
         importDOIs(fname)
-    listPrefixes()
-    importPrefixes()
+        listPrefixes()
+        importPrefixes()
+        dois.clear();
+        prefixes.clear();
     print('done!')
 
 
