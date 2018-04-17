@@ -106,7 +106,7 @@ def importPrefixes():
 
 
 def main(path):
-    path = '{}/*.json'.format(path)
+    path = '{}/*.*'.format(path)
     for fname in glob.glob(path):
         pp.pprint(fname)
         #f= codecs.open(fname, encoding='utf-8')
