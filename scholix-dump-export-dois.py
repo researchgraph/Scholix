@@ -11,6 +11,7 @@ import pprint as pp
 import requests
 from requests.utils import requote_uri
 import sqlite3
+import codecs
 
 localDB='doi_prefixes.db'
 doi_table_name = 'dois'
@@ -48,14 +49,14 @@ db.close()
 # In[ ]:
 
 
-def processNode(node):
-    for i in node['identifiers']:
-        if i['schema']=='doi':
-            doi=i['identifier']
-            if doi in dois:
-                dois[doi]=dois[doi]+1
-            else:
-                dois[doi]=1
+def processNode(node):  
+    #pp.pprint(node['Identifier']['IDScheme'])
+    if node['Identifier']['IDScheme']=='doi':
+        doi=node['Identifier']['ID']
+        if doi in dois:
+            dois[doi]=dois[doi]+1
+        else:
+            dois[doi]=1
 
 
 # In[ ]:
@@ -101,20 +102,23 @@ def importPrefixes():
     db.close()
 
 
-# In[2]:
+# In[ ]:
 
 
 def main(path):
     path = '{}/*.json'.format(path)
     for fname in glob.glob(path):
-        with open(fname , 'r') as f:
-            lines = f.readlines()
+        pp.pprint(fname)
+        #f= codecs.open(fname, encoding='utf-8')
+        f= open(fname, 'r')
+        lines = f.readlines()
+        f.close()
         print ('{} lines are in {}'.format(len(lines),fname))
         for line in lines:
             data = json.loads(line)
-            for link in data:
-                processNode(link['source'])
-                processNode(link['target'])            
+            #pp.pprint(data)
+            processNode(data['Source'])
+            processNode(data['Target'])          
         importDOIs(fname)
     listPrefixes()
     importPrefixes()
@@ -124,7 +128,7 @@ def main(path):
 # In[ ]:
 
 
-#main('Elsevier')
+#main('dump')
 
 
 # In[ ]:
