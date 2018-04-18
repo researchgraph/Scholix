@@ -12,8 +12,9 @@ import requests
 from requests.utils import requote_uri
 import sqlite3
 import codecs
-reload(sys)
-sys.setdefaultencoding('utf8')
+# from importlib import reload
+# reload(sys)
+# sys.setdefaultencoding('utf8')
 
 localDB='doi_prefixes.db'
 doi_table_name = 'dois'
@@ -40,6 +41,7 @@ sql='CREATE TABLE IF NOT EXISTS {tn} ({nf1} {ft1},{nf2} {ft2},{nf3} {ft3},{nf4} 
 cur.execute(sql) 
 # Creating Prefixes
 sql='CREATE TABLE IF NOT EXISTS {tn} ({nf1} {ft1} PRIMARY KEY, {nf2} {ft2})'            .format(tn=prefix_table_name, nf1=fld_prefix, ft1='TEXT', nf2=fld_org, ft2='TEXT')
+print(sql)
 cur.execute(sql) 
 # Close the connection
 db.commit()
@@ -54,7 +56,7 @@ db.close()
 def processNode(node):  
     #pp.pprint(node['Identifier']['IDScheme'])
     if node['Identifier']['IDScheme']=='doi':
-        doi=node['Identifier']['ID']
+        doi=node['Identifier']['ID'].replace("'","")
         if doi in dois:
             dois[doi]=dois[doi]+1
         else:
@@ -104,11 +106,11 @@ def importPrefixes():
     db.close()
 
 
-# In[1]:
+# In[ ]:
 
 
 def main(path):
-    path = '{}/*.*'.format(path)
+    path = '{}/*.json'.format(path)
     for fname in glob.glob(path):
         pp.pprint(fname)
         #f= codecs.open(fname, encoding='utf-8')
@@ -132,7 +134,7 @@ def main(path):
 # In[ ]:
 
 
-#main('dump')
+main('dump')
 
 
 # In[ ]:
